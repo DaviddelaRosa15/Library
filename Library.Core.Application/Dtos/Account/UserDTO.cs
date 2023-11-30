@@ -15,8 +15,6 @@ namespace Library.Core.Application.Dtos.Account
         public string Email { get; set; }
         public string UrlImage { get; set; }
         public string Role { get; set; }
-        public string Province { get; set; }
-        public string Municipality { get; set; }
         public string Address { get; set; }
     }
 }
