@@ -1,4 +1,5 @@
-﻿using Library.Core.Domain.Entities;
+﻿using Library.Core.Application.Interfaces.Reposirories;
+using Library.Core.Domain.Entities;
 using Library.Infrastructure.Persistence.Contexts;
 using System;
 using System.Collections.Generic;

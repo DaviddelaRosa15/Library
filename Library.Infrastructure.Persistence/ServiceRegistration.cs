@@ -1,4 +1,5 @@
-﻿using Library.Core.Application.Interfaces.Repositories;
+﻿using Library.Core.Application.Interfaces.Reposirories;
+using Library.Core.Application.Interfaces.Repositories;
 using Library.Infrastructure.Persistence.Contexts;
 using Library.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -50,6 +51,8 @@ namespace Library.Infrastructure.Persistence
 
 			#region Repositories
 			services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+			services.AddTransient<IBookRepository, BookRepository>();
+			services.AddTransient<IAuthorRepository, AuthorRepository>();
 			#endregion
 		}
 	}

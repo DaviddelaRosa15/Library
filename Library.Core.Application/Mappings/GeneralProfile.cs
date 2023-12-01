@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Library.Core.Application.Dtos.Account;
 using Library.Core.Application.Features.Account.Commands.Authenticate;
+using Library.Core.Application.Features.Book.Commands.AddBookCommand;
+using Library.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,18 @@ namespace Library.Core.Application.Mappings
 			#region Account
 			CreateMap<AuthenticationRequest, AuthenticateCommand>()
 				.ReverseMap();
+
+            #endregion
+
+            #region Book
+
+            CreateMap<Book, AddBookCommand>()
+                .ReverseMap()
+                .ForMember(x => x.Author, opt => opt.Ignore())
+                .ForMember(x => x.Created, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                .ForMember(x => x.LastModified, opt => opt.Ignore())
+                .ForMember(x => x.LastModifiedBy, opt => opt.Ignore());
 
             #endregion
         }
