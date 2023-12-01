@@ -29,10 +29,8 @@ namespace Library.Infrastructure.Identity.Seeds
                 if (user == null)
                 {
                     await userManager.CreateAsync(defaultUser, "1505Pa@@word");
-                    await userManager.AddToRoleAsync(defaultUser, Roles.Author.ToString());
-                    await userManager.AddToRoleAsync(defaultUser, Roles.Admin.ToString());
-
-				}
+                    await userManager.AddToRoleAsync(defaultUser, Roles.User.ToString());
+                }
 			}
          
         }

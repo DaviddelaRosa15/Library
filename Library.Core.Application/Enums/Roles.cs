@@ -8,7 +8,6 @@ namespace Library.Core.Application.Enums
 {
 	public enum Roles
 	{
-		Admin,
-		Author
+		User
 	}
 }
