@@ -95,7 +95,7 @@ namespace Library.Infrastructure.Identity
                         c.HandleResponse();
                         c.Response.StatusCode = 401;
                         c.Response.ContentType = "application/json";
-                        var result = JsonConvert.SerializeObject(new JwtResponse { HasError = true, Error = "ERR_JWT" });
+                        var result = JsonConvert.SerializeObject(new JwtResponse { HasError = true, Error = "Usted no se ha logueado" });
                         return c.Response.WriteAsync(result);
                     },
                     OnForbidden = c =>

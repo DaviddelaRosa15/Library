@@ -42,7 +42,7 @@ namespace Library.Core.Application.Features.Author.Commands.DeleteAuthorCommand
 
                 if (author == null)
                 {
-                    throw new Exception("No se encontró ese libro en su biblioteca");
+                    throw new Exception("No se encontró ese autor en la biblioteca");
                 }
 
                 await _authorRepository.DeleteAsync(author);

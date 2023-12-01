@@ -46,10 +46,10 @@ namespace Library.Core.Application.Features.Author.Commands.UpdateAuthorCommand
                 
                 if (author == null)
                 {
-                    throw new Exception("No se encontró ese libro en su biblioteca");
+                    throw new Exception("No se encontró ese autor en la biblioteca");
                 }
 
-                author = _mapper.Map<Domain.Entities.Author>(command);
+                author.Name = command.Name;
                 await _authorRepository.UpdateAsync(author,author.Id);
 
                 response = _mapper.Map<AuthorDTO>(author);

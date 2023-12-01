@@ -25,11 +25,11 @@ namespace Library.Infrastructure.Persistence.Contexts
                     case EntityState.Added:
                         entry.Entity.Id = Guid.NewGuid().ToString().Substring(5, 8);
                         entry.Entity.Created = DateTime.UtcNow;
-                        entry.Entity.CreatedBy = "DefaultMediSearchUser";
+                        entry.Entity.CreatedBy = "DefaultLibrayUser";
                         break;
                     case EntityState.Modified:
                         entry.Entity.LastModified = DateTime.UtcNow;
-                        entry.Entity.LastModifiedBy = "DefaultMediSearchUser";
+                        entry.Entity.LastModifiedBy = "DefaultLibraryUser";
                         break;
                 }
             }
