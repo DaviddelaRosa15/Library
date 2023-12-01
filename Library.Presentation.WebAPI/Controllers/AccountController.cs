@@ -118,7 +118,7 @@ namespace Library.Presentation.WebApi.Controllers
         {
             try
             {
-                var response = await Mediator.Send(new GetValidationRefreshTokenQueryResponse());
+                var response = await Mediator.Send(new GetValidationRefreshTokenQuery());
 
                 return Ok(response);
             }
