@@ -32,9 +32,8 @@ namespace Library.Core.Application.Features.Book.Queries.GetBookById
 
             try
             {
-                List<BookDTO> resultDTO = new();
-                var Book = await _bookRepository.GetByIdAsync(query.Id);
-                response = _mapper.Map<BookDTO>(Book);
+                var book = await _bookRepository.GetByIdAsync(query.Id);
+                response = _mapper.Map<BookDTO>(book);
             }
             catch (Exception ex)
             {

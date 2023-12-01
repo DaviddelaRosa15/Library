@@ -23,7 +23,7 @@ namespace Library.Core.Application.Mappings
 
             #region Book
 
-            CreateMap<Book, AddBookCommand>()
+            CreateMap<Book, AddAuthorCommand>()
                 .ReverseMap()
                 .ForMember(x => x.Author, opt => opt.Ignore())
                 .ForMember(x => x.Created, opt => opt.Ignore())

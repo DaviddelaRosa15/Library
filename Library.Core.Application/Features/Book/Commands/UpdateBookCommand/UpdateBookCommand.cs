@@ -14,10 +14,10 @@ using System.Threading.Tasks;
 
 namespace Library.Core.Application.Features.Book.Commands.UpdateBookCommand
 {
-    public class UpdateBookCommand : IRequest<BookDTO>
+    public class UpdateAuthorCommand : IRequest<BookDTO>
     {
-        [SwaggerParameter(Description = "Id del producto a actualizar.")]
-        [Required(ErrorMessage = "Debe de especificar un nombre para este producto.")]
+        [SwaggerParameter(Description = "Id del libro a actualizar.")]
+        [Required(ErrorMessage = "Debe de especificar el id del libro.")]
         public string Id { get; set; }
 
         [SwaggerParameter(Description = "Titulo")]
@@ -28,7 +28,7 @@ namespace Library.Core.Application.Features.Book.Commands.UpdateBookCommand
         public string? AuthorId { get; set; }
     }
 
-    public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, BookDTO>
+    public class UpdateBookCommandHandler : IRequestHandler<UpdateAuthorCommand, BookDTO>
     {
         private readonly IBookRepository _bookRepository;
         private readonly IMapper _mapper;
@@ -39,7 +39,7 @@ namespace Library.Core.Application.Features.Book.Commands.UpdateBookCommand
             _mapper = mapper;
         }
 
-        public async Task<BookDTO> Handle(UpdateBookCommand command, CancellationToken cancellationToken)
+        public async Task<BookDTO> Handle(UpdateAuthorCommand command, CancellationToken cancellationToken)
         {
             BookDTO response = new();
 

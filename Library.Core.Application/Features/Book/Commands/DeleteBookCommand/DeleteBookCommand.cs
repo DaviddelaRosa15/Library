@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Library.Core.Application.Features.Book.Commands.DeleteBookCommand
 {
-    public class DeleteBookCommand : IRequest<BookDTO>
+    public class DeleteAuthorCommand : IRequest<BookDTO>
     {
         [SwaggerParameter(Description = "Id")]
         [Required(ErrorMessage = "Debe de especificar el id del libro.")]
@@ -24,7 +24,7 @@ namespace Library.Core.Application.Features.Book.Commands.DeleteBookCommand
         public string? AuthorId { get; set; }
     }
 
-    public class DeleteBookCommandHandler : IRequestHandler<DeleteBookCommand, BookDTO>
+    public class DeleteBookCommandHandler : IRequestHandler<DeleteAuthorCommand, BookDTO>
     {
         private readonly IBookRepository _bookRepository;
         private readonly IMapper _mapper;
@@ -35,7 +35,7 @@ namespace Library.Core.Application.Features.Book.Commands.DeleteBookCommand
             _mapper = mapper;
         }
 
-        public async Task<BookDTO> Handle(DeleteBookCommand command, CancellationToken cancellationToken)
+        public async Task<BookDTO> Handle(DeleteAuthorCommand command, CancellationToken cancellationToken)
         {
             BookDTO response = new();
 

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Library.Core.Application.Features.Book.Commands.AddBookCommand
 {
-    public class AddBookCommand : IRequest<BookDTO>
+    public class AddAuthorCommand : IRequest<BookDTO>
     {
         [SwaggerParameter(Description = "Titulo")]
         [Required(ErrorMessage = "Debe de especificar un titulo para este libro.")]
@@ -24,7 +24,7 @@ namespace Library.Core.Application.Features.Book.Commands.AddBookCommand
         public string? AuthorId { get; set; }
     }
 
-    public class AddBookCommandHandler : IRequestHandler<AddBookCommand, BookDTO>
+    public class AddBookCommandHandler : IRequestHandler<AddAuthorCommand, BookDTO>
     {
         private readonly IBookRepository _bookRepository;
         private readonly IMapper _mapper;
@@ -35,7 +35,7 @@ namespace Library.Core.Application.Features.Book.Commands.AddBookCommand
             _mapper = mapper;
         }
 
-        public async Task<BookDTO> Handle(AddBookCommand command, CancellationToken cancellationToken)
+        public async Task<BookDTO> Handle(AddAuthorCommand command, CancellationToken cancellationToken)
         {
             BookDTO response = new();
 
