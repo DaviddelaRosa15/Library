@@ -367,3 +367,6 @@ Library.Presentation.WebAPI/appsettings.json
 
 # env - environment variables
 .env
+
+#images
+Library.Presentation.WebAPI/wwwroot/Assets/Images/Users
