@@ -14,17 +14,14 @@ using System.Threading.Tasks;
 
 namespace Library.Core.Application.Features.Book.Commands.DeleteBookCommand
 {
-    public class DeleteAuthorCommand : IRequest<BookDTO>
+    public class DeleteBookCommand : IRequest<BookDTO>
     {
         [SwaggerParameter(Description = "Id")]
         [Required(ErrorMessage = "Debe de especificar el id del libro.")]
         public string Id { get; set; }
-
-        [JsonIgnore]
-        public string? AuthorId { get; set; }
     }
 
-    public class DeleteBookCommandHandler : IRequestHandler<DeleteAuthorCommand, BookDTO>
+    public class DeleteBookCommandHandler : IRequestHandler<DeleteBookCommand, BookDTO>
     {
         private readonly IBookRepository _bookRepository;
         private readonly IMapper _mapper;
@@ -35,7 +32,7 @@ namespace Library.Core.Application.Features.Book.Commands.DeleteBookCommand
             _mapper = mapper;
         }
 
-        public async Task<BookDTO> Handle(DeleteAuthorCommand command, CancellationToken cancellationToken)
+        public async Task<BookDTO> Handle(DeleteBookCommand command, CancellationToken cancellationToken)
         {
             BookDTO response = new();
 
@@ -45,10 +42,7 @@ namespace Library.Core.Application.Features.Book.Commands.DeleteBookCommand
 
                 if (book == null)
                 {
-                    throw new Exception("No se encontró ese libro en su biblioteca");
-                }else if (book.AuthorId != command.AuthorId)
-                {
-                    throw new Exception("No se encontró ese libro en su biblioteca");
+                    throw new Exception("No se encontró ese libro en la biblioteca");
                 }
 
                 await _bookRepository.DeleteAsync(book);

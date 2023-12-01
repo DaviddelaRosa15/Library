@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Library.Core.Application.Dtos.Book;
 using Library.Core.Application.Interfaces.Reposirories;
+using System.Text.Json.Serialization;
 
 namespace Library.Core.Application.Features.Book.Queries.GetBookById
 {
@@ -33,6 +34,7 @@ namespace Library.Core.Application.Features.Book.Queries.GetBookById
             try
             {
                 var book = await _bookRepository.GetByIdAsync(query.Id);
+
                 response = _mapper.Map<BookDTO>(book);
             }
             catch (Exception ex)

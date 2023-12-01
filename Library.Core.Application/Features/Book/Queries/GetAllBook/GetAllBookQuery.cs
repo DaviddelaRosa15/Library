@@ -7,7 +7,7 @@ namespace Library.Core.Application.Features.Book.Queries.GetAllBook
 {
     public class GetAllBookQuery : IRequest<List<BookDTO>>
     {
-        public string AuthorId { get; set; }
+
     }
 
     public class GetAllBookQueryHandler : IRequestHandler<GetAllBookQuery, List<BookDTO>>
@@ -28,8 +28,7 @@ namespace Library.Core.Application.Features.Book.Queries.GetAllBook
             try
             {
                 var books = await _bookRepository.GetAllAsync();
-                var booksAuthor = books.FindAll(x => x.AuthorId == query.AuthorId);
-                result = _mapper.Map<List<BookDTO>>(booksAuthor);
+                result = _mapper.Map<List<BookDTO>>(books);
             }
             catch(Exception ex)
             {
