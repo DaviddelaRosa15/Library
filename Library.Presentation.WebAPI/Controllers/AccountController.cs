@@ -10,7 +10,8 @@ using Library.Core.Application.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net.Mime;
-using Library.Core.Application.Features.Account.Commands.ValidateRefreshToken;
+using Library.Core.Application.Features.Account.Commands.RegisterUser;
+using Library.Core.Application.Features.Account.Queries.GetValidationRefreshToken;
 
 namespace Library.Presentation.WebApi.Controllers
 {
@@ -107,7 +108,7 @@ namespace Library.Presentation.WebApi.Controllers
         }
 
         [HttpGet("validate-refresh-token")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ValidateRefreshTokenResponse))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetValidationRefreshTokenQueryResponse))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(AuthenticationResponse))]
         [SwaggerOperation(
            Summary = "Validar el refresh token",
@@ -117,12 +118,7 @@ namespace Library.Presentation.WebApi.Controllers
         {
             try
             {
-                var token = Request.Cookies["refreshToken"];
-                if (token == null)
-                {
-                    return Ok(new ValidateRefreshTokenResponse() { ValidRefreshToken = false });
-                }
-                var response = await Mediator.Send(new ValidateRefreshTokenCommand() { refreshToken = token});
+                var response = await Mediator.Send(new GetValidationRefreshTokenQueryResponse());
 
                 return Ok(response);
             }
@@ -132,15 +128,15 @@ namespace Library.Presentation.WebApi.Controllers
             }
         }
 
-        /*[HttpPost("register-client")]
+        [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RegisterResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(RegisterResponse))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(RegisterResponse))]
         [SwaggerOperation(
-           Summary = "Registro de usuario cliente",
-           Description = "Registra a un usuario de tipo cliente"
+           Summary = "Registro",
+           Description = "Registrese para usar el sistema"
         )]
-        public async Task<IActionResult> RegisterClient([FromForm] RegisterCommand command)
+        public async Task<IActionResult> RegisterUser([FromForm] RegisterUserCommand command)
         {
             try
             {
@@ -166,7 +162,7 @@ namespace Library.Presentation.WebApi.Controllers
             {
                 return new JsonResult(e.Message) { StatusCode = StatusCodes.Status500InternalServerError };
             }
-        }*/
+        }
 
         [HttpGet("confirm-email")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

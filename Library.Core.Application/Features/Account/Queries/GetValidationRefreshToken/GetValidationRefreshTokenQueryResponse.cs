@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Core.Application.Features.Account.Commands.ValidateRefreshToken
+namespace Library.Core.Application.Features.Account.Queries.GetValidationRefreshToken
 {
-    public class ValidateRefreshTokenResponse
+    public class GetValidationRefreshTokenQueryResponse
     {
         public bool ValidRefreshToken { get; set; }
     }

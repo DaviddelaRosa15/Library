@@ -18,8 +18,6 @@ namespace Library.Infrastructure.Identity.Seeds
             defaultUser.Email = "superadminuser@email.com";
             defaultUser.FirstName = "David";
             defaultUser.LastName = "de la Rosa";
-            defaultUser.Province = "Santo Domingo";
-            defaultUser.Municipality = "Santo Domingo Este";
             defaultUser.Address = "Brisas del Este";
             defaultUser.UrlImage = "no hay por ahora";
             defaultUser.EmailConfirmed = true;
@@ -31,8 +29,7 @@ namespace Library.Infrastructure.Identity.Seeds
                 if (user == null)
                 {
                     await userManager.CreateAsync(defaultUser, "1505Pa@@word");
-                    await userManager.AddToRoleAsync(defaultUser, Roles.Client.ToString());
-                    await userManager.AddToRoleAsync(defaultUser, Roles.SuperAdmin.ToString());
+                    await userManager.AddToRoleAsync(defaultUser, Roles.Author.ToString());
                     await userManager.AddToRoleAsync(defaultUser, Roles.Admin.ToString());
 
 				}

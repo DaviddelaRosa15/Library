@@ -23,7 +23,7 @@
 
 	<ItemGroup>
 		<Folder Include="Controllers\v1\" />
-		<Folder Include="wwwroot\" />
+		<Folder Include="wwwroot\Assets\Images\Users\" />
 	</ItemGroup>
 
 	<ItemGroup>

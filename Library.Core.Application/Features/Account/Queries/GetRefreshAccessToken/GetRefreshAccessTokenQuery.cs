@@ -15,27 +15,17 @@ namespace Library.Core.Application.Features.Account.Queries.GetRefreshAccessToke
 	{
 
 		private readonly IAccountService _accountService;
-		private readonly IMapper _mapper;
-		private readonly IHttpContextAccessor _httpContextAccessor;
 
-		public GetRefreshAccessTokenQueryHandler(IAccountService accountService, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+		public GetRefreshAccessTokenQueryHandler(IAccountService accountService)
 		{
 			_accountService = accountService;
-			_mapper = mapper;
-			_httpContextAccessor = httpContextAccessor;
 		}
 
 		public async Task<RefreshTokenResponse> Handle(GetRefreshAccessTokenQuery request, CancellationToken cancellationToken)
 		{
 			RefreshTokenResponse response = new();
-			string cookie = _httpContextAccessor.HttpContext.Request.Cookies["refreshToken"];
-			if(cookie == null)
-			{
-				response.HasError = true;
-				return response;
-			}
 
-			var result = _accountService.ValidateRefreshToken(cookie);
+			var result = _accountService.ValidateRefreshToken();
 
 			if(result.Contains("Error") || result == "")
 			{

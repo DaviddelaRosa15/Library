@@ -15,14 +15,10 @@ namespace Library.Core.Application.Features.Account.Commands.ConfirmEmail
 	public class ConfirmEmailCommandHandler : IRequestHandler<ConfirmEmailCommand, ConfirmEmailResponse>
 	{
 		private readonly IAccountService _accountService;
-		private readonly IMapper _mapper;
-		IHttpContextAccessor _httpContextAccessor;
 
-		public ConfirmEmailCommandHandler(IAccountService accountService, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+		public ConfirmEmailCommandHandler(IAccountService accountService, IMapper mapper)
 		{
 			_accountService = accountService;
-			_mapper = mapper;
-			_httpContextAccessor = httpContextAccessor;
 		}
 
 

@@ -80,8 +80,9 @@ namespace Library.Infrastructure.Identity.Services
             return response;
         }
 
-        public async Task<RegisterResponse> RegisterClientUserAsync(RegisterRequest request, string origin)
+        public async Task<RegisterResponse> RegisterUserAsync(RegisterRequest request)
         {
+            
             RegisterResponse response = await ValidateUserBeforeRegistrationAsync(request);
             if (response.HasError)
             {
@@ -96,16 +97,14 @@ namespace Library.Infrastructure.Identity.Services
                 UserName = request.UserName,
                 PhoneNumber = request.PhoneNumber,
                 UrlImage = request.UrlImage,
-                Province = request.Province,
-                Municipality = request.Municipality,
                 Address = request.Address
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, Roles.Client.ToString());
-                var verificationUri = await SendVerificationEmailUri(user, origin);
+                await _userManager.AddToRoleAsync(user, Roles.Author.ToString());
+                var verificationUri = await SendVerificationEmailUri(user);
                 await _emailService.SendAsync(new EmailRequest()
                 {
                     To = user.Email,
@@ -331,8 +330,14 @@ namespace Library.Infrastructure.Identity.Services
             return token;
         }
 
-        public string ValidateRefreshToken(string token)
+        public string ValidateRefreshToken()
         {
+            string token = _httpContextAccessor.HttpContext.Request.Cookies["refreshToken"];
+            if (token == null)
+            {
+                return "Error: No existen token de actualización";
+            }
+
             string userId = "";
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             TokenValidationParameters tokenValidationParameters = new TokenValidationParameters
@@ -390,8 +395,6 @@ namespace Library.Infrastructure.Identity.Services
                 PhoneNumber = user.PhoneNumber,
                 UrlImage = user.UrlImage,
                 Address = user.Address,
-                Province = user.Province,
-                Municipality = user.Municipality,
                 Role = roles.First(),
             };
 
@@ -407,8 +410,6 @@ namespace Library.Infrastructure.Identity.Services
             userToUpdate.LastName = user.LastName;
             userToUpdate.UrlImage = user.UrlImage;
             userToUpdate.Address = user.Address;
-            userToUpdate.Province = user.Province;
-            userToUpdate.Municipality = user.Municipality;
 
             try
             {
@@ -455,8 +456,10 @@ namespace Library.Infrastructure.Identity.Services
             return response;
         }
 
-        private async Task<string> SendVerificationEmailUri(ApplicationUser user, string origin)
+        private async Task<string> SendVerificationEmailUri(ApplicationUser user)
         {
+            var origin = $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}";
+
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
             var route = "api/v1/Account/confirm-email";
